@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffb3d1">
+<title>2 года вместе 💖</title>
+<style>
+  :root{--p1:#fff0f6;--p2:#ffd1e3;--p3:#ff9ec4;--p4:#ff5c9d;--p5:#c2185b;--ink:#7a1f4b}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);
+    background:linear-gradient(170deg,var(--p1),var(--p2) 50%,var(--p3));background-attachment:fixed;
+    min-height:100dvh;
+  }
+  body.locked{overflow:hidden;height:100dvh}
+  .float{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .float span{position:absolute;bottom:-60px;opacity:.5;animation:rise linear infinite}
+  @keyframes rise{to{transform:translateY(-115dvh) rotate(25deg);opacity:0}}
+
+  /* ===== Конверт ===== */
+  #intro{
+    position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(170deg,var(--p1),var(--p2) 60%,var(--p3));text-align:center;padding:24px;
+    transition:opacity .8s,transform .8s;
+  }
+  #intro.gone{opacity:0;transform:scale(1.15);pointer-events:none}
+  .env{font-size:110px;animation:bob 2s ease-in-out infinite;cursor:pointer;filter:drop-shadow(0 12px 20px rgba(194,24,91,.3))}
+  @keyframes bob{50%{transform:translateY(-12px) rotate(-3deg)}}
+  #intro h2{color:var(--p5);margin:10px 0 6px;font-size:26px}
+  #intro p{margin:0;opacity:.8}
+  .tap{margin-top:24px;padding:14px 30px;font:inherit;font-weight:700;font-size:18px;border:none;border-radius:999px;color:#fff;
+    background:linear-gradient(135deg,var(--p4),#ff2e83);box-shadow:0 8px 22px rgba(255,46,131,.45);animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{transform:scale(1.07)}}
+
+  /* ===== Страница ===== */
+  main{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:36px 20px 70px}
+  section{margin-bottom:56px}
+  h1{font-size:34px;line-height:1.15;color:var(--p5);text-align:center;margin:0 0 6px}
+  .sub{text-align:center;font-size:17px;margin:0 0 26px;opacity:.85}
+  h3{font-size:24px;color:var(--p5);text-align:center;margin:0 0 20px}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.2,.9,.3,1)}
+  .reveal.show{opacity:1;transform:none}
+
+  /* фото */
+  .photo-wrap{position:relative;width:78%;max-width:300px;margin:34px auto 10px;transform:rotate(-3deg)}
+  .ear{position:absolute;top:-30px;width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:50px solid var(--p3);z-index:0}
+  .ear.l{left:14px;transform:rotate(-14deg)} .ear.r{right:14px;transform:rotate(14deg)}
+  .frame{position:relative;z-index:1;background:#fff;padding:12px 12px 46px;border-radius:20px;box-shadow:0 18px 40px rgba(194,24,91,.3)}
+  .frame .img{width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--p2),var(--p3));
+    display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-weight:700;text-align:center}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .frame .cap{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-weight:700;color:var(--p5)}
+  .paw{position:absolute;font-size:34px;z-index:2}
+  .paw.a{right:-14px;bottom:-12px;transform:rotate(20deg)} .paw.b{left:-16px;top:40%;transform:rotate(-20deg)}
+
+  /* счётчик */
+  .count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .box{background:rgba(255,255,255,.8);border:2px solid #fff;border-radius:18px;padding:12px 2px;text-align:center;box-shadow:0 8px 18px rgba(194,24,91,.15)}
+  .box b{display:block;font-size:26px;color:var(--p4)} .box small{font-size:12px;opacity:.75}
+
+  /* таймлайн */
+  .tl{position:relative;padding-left:30px}
+  .tl::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--p4),var(--p3));border-radius:3px}
+  .ev{position:relative;background:rgba(255,255,255,.8);border:2px solid #fff;border-radius:20px;padding:14px 16px;margin-bottom:18px;box-shadow:0 8px 20px rgba(194,24,91,.14)}
+  .ev::before{content:"🐾";position:absolute;left:-31px;top:12px;font-size:18px;background:var(--p2);border-radius:50%}
+  .ev b{color:var(--p5)} .ev small{display:block;opacity:.65;margin-bottom:4px}
+
+  /* карточка-котик */
+  .cardcat{background:rgba(255,255,255,.85);border:2px solid #fff;border-radius:28px;padding:26px 20px;text-align:center;box-shadow:0 14px 34px rgba(194,24,91,.2)}
+  .cardcat .big{font-size:64px;display:block;transition:transform .3s}
+  .cardcat p{min-height:72px;font-size:18px;margin:12px 0 18px;line-height:1.4}
+  .btn{font:inherit;font-weight:700;font-size:17px;padding:13px 26px;border:none;border-radius:999px;color:#fff;cursor:pointer;
+    background:linear-gradient(135deg,var(--p4),#ff2e83);box-shadow:0 8px 20px rgba(255,46,131,.4)}
+  .btn:active{transform:scale(.95)}
+
+  /* письмо */
+  .letter{background:#fff;border-radius:24px;padding:26px 22px;line-height:1.65;font-size:17px;box-shadow:0 14px 34px rgba(194,24,91,.2);position:relative}
+  .letter::after{content:"🐱";position:absolute;right:16px;bottom:-22px;font-size:44px}
+  .sign{text-align:right;font-weight:700;color:var(--p5);margin-top:14px}
+</style>
+</head>
+<body class="locked">
+
+<div class="float" id="float"></div>
+
+<div id="intro">
+  <div class="env" id="env">💌</div>
+  <h2>Тебе письмо 🐱</h2>
+  <p>Там кое-что важное</p>
+  <button class="tap" id="open">Открыть 💖</button>
+</div>
+
+<main>
+  <section class="reveal">
+    <h1>С годовщиной,<br><span id="name">прелесть!</span>! 💖</h1>
+    <p class="sub">2 года, как началась наша история</p>
+
+    <div class="photo-wrap">
+      <div class="ear l"></div><div class="ear r"></div>
+      <div class="frame">
+        <div class="img" id="photoBox">
+          <span style="font-size:46px">📸</span>
+          <span>Здесь будет<br>наше фото</span>
+        </div>
+        <div class="cap" id="caption">мы 💗</div>
+      </div>
+      <span class="paw a">🐾</span><span class="paw b">🐾</span>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h3>Нашей истории уже</h3>
+    <div class="count">
+      <div class="box"><b id="d">0</b><small>дней</small></div>
+      <div class="box"><b id="h">0</b><small>часов</small></div>
+      <div class="box"><b id="m">0</b><small>минут</small></div>
+      <div class="box"><b id="s">0</b><small>секунд</small></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h3>Наша история 🐾</h3>
+    <div class="tl" id="tl"></div>
+  </section>
+
+  <section class="reveal">
+    <h3>Котик что-то скажет 😸</h3>
+    <div class="cardcat">
+      <span class="big" id="bigcat">🐱</span>
+      <p id="phrase">Нажми на кнопку, чтобы узнать что-то про себя...</p>
+      <button class="btn" id="more">Ещё одна причина 💗</button>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h3>Немного слов 💌</h3>
+    <div class="letter" id="letter"></div>
+  </section>
+</main>
+
+<script>
+  // ========= НАСТРОЙКИ (меняй тут) =========
+  const START_DATE = "2024-11-02T00:00:00";
+  const HER_NAME   = "прелесть";
+  const MY_NAME    = "твоя шладость";
+  const PHOTO_SRC  = "photo.jpg"; 
+  const CAPTION    = "мы <3";
+
+  const EVENTS = [
+    {date:"Сентябрь 2024", title:"Всё началось", text:"Первое сообщение, с которого пошла наша история."},
+    {date:"Ноябрь 2024",      title:"Первая встреча", text:"Попа захотела приключений)"},
+    {date:"Сегодня",     title:"2 года вместе", text:"И это только начало 💗"},
+  ];
+
+  const REASONS = [
+    "Твоя улыбка настолько прекрасна, что от нее всё остальное исчезает 😊",
+    "С тобой можно говорить обо всём 💬",
+    "Твой смех - лучший звук на свете 🎶",
+    "Ты делаешь обычные дни особенными ✨",
+    "Ты прекрасна, ведь излучаешь доброту и тепло 🌸",
+    "Ты есть у меня 🐱",
+    "Каждое «доброе утречко» и «сладеньких снов» лучше любых колыбельных🌙",
+    "Рядом с тобой я становлюсь лучше 💪",
+  ];
+
+  const LETTER = `Два года назад я даже не представлял, что обычное общение превратится в самое важное в моей жизни.<br><br>
+  Спасибо тебе за поддержку, за смех, за терпение и за то, что ты рядом. С тобой любой день становится теплее, а котики вокруг кажутся милее.<br><br>
+  Я хочу, чтобы впереди было ещё много лет, прогулок и общих историй.`;
+  // =========================================
+
+  document.getElementById('name').textContent = HER_NAME;
+  document.getElementById('caption').textContent = CAPTION;
+  if (PHOTO_SRC){
+    document.getElementById('photoBox').innerHTML = `<img src="${PHOTO_SRC}" alt="Наше фото">`;
+  }
+  document.getElementById('letter').innerHTML = LETTER + `<div class="sign">${MY_NAME} 💌</div>`;
+
+  // фон
+  const icons=['🐱','😸','🐾','💗','🌸','😻','💖','🐈'], fb=document.getElementById('float');
+  for(let i=0;i<18;i++){
+    const s=document.createElement('span');
+    s.textContent=icons[Math.random()*icons.length|0];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(20+Math.random()*28)+'px';
+    s.style.animationDuration=(9+Math.random()*10)+'s';
+    s.style.animationDelay=(-Math.random()*15)+'s';
+    fb.appendChild(s);
+  }
+
+  // таймлайн
+  document.getElementById('tl').innerHTML = EVENTS.map(e=>
+    `<div class="ev"><small>${e.date}</small><b>${e.title}</b><div>${e.text}</div></div>`).join('');
+
+  // счётчик
+  const start=new Date(START_DATE).getTime();
+  function tick(){
+    let t=Math.max(0,Date.now()-start)/1000|0;
+    const d=t/86400|0; t%=86400;
+    const h=t/3600|0; t%=3600;
+    document.getElementById('d').textContent=d;
+    document.getElementById('h').textContent=h;
+    document.getElementById('m').textContent=t/60|0;
+    document.getElementById('s').textContent=t%60;
+  }
+  tick(); setInterval(tick,1000);
+
+  // причины
+  let ri=-1; const cats=['😺','😸','😻','😽','🐱','😹'];
+  document.getElementById('more').addEventListener('click',()=>{
+    ri=(ri+1)%REASONS.length;
+    document.getElementById('phrase').textContent=REASONS[ri];
+    const c=document.getElementById('bigcat');
+    c.textContent=cats[Math.random()*cats.length|0];
+    c.style.transform='scale(1.3) rotate('+((Math.random()-.5)*30)+'deg)';
+    setTimeout(()=>c.style.transform='',300);
+    burst(14);
+  });
+
+  // появление при скролле
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // открытие конверта
+  function openIt(){
+    document.getElementById('intro').classList.add('gone');
+    document.body.classList.remove('locked');
+    burst(45);
+  }
+  document.getElementById('open').addEventListener('click',openIt);
+  document.getElementById('env').addEventListener('click',openIt);
+
+  // конфетти
+  function burst(n){
+    const em=['💖','🌸','🐱','✨','💗','😻','🐾'];
+    for(let i=0;i<n;i++){
+      const el=document.createElement('div');
+      el.textContent=em[Math.random()*em.length|0];
+      Object.assign(el.style,{position:'fixed',left:Math.random()*100+'vw',top:'-30px',fontSize:(18+Math.random()*22)+'px',
+        zIndex:99,pointerEvents:'none',transition:'transform 2.6s ease-in,opacity 2.6s'});
+      document.body.appendChild(el);
+      requestAnimationFrame(()=>{
+        el.style.transform=`translate(${(Math.random()-.5)*160}px,${innerHeight+80}px) rotate(${Math.random()*540}deg)`;
+        el.style.opacity=0;
+      });
+      setTimeout(()=>el.remove(),2800);
+    }
+  }
+
+  // сердечки по тапу
+  document.addEventListener('pointerdown',e=>{
+    const h=document.createElement('div');
+    h.textContent=['💗','🐾','💖'][Math.random()*3|0];
+    Object.assign(h.style,{position:'fixed',left:e.clientX-10+'px',top:e.clientY-10+'px',fontSize:'22px',zIndex:99,
+      pointerEvents:'none',transition:'transform 1s ease-out,opacity 1s'});
+    document.body.appendChild(h);
+    requestAnimationFrame(()=>{h.style.transform='translateY(-60px) scale(1.5)';h.style.opacity=0});
+    setTimeout(()=>h.remove(),1000);
+  });
+</script>
+</body>
+</html>
